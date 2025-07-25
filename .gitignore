@@ -1,0 +1,47 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+env/
+venv/
+ENV/
+.venv/
+
+# macOS/Linux hidden files
+.DS_Store
+Thumbs.db
+
+# Python virtualenv packages
+*.egg-info/
+.eggs/
+*.egg
+
+# Logs and temporary files
+*.log
+*.tmp
+*.bak
+*.swp
+
+# Uploaded resumes
+resumes/
+*.pdf
+
+# Streamlit specific
+.streamlit/config.toml
+.streamlit/secrets.toml
+
+# VS Code settings
+.vscode/
+
+# Jupyter Notebook checkpoints (if you add any)
+.ipynb_checkpoints/
+
+# Environment files
+.env
+.env.*
+
+# OS generated files
+ehthumbs.db
+Icon?
