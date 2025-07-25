@@ -23,7 +23,7 @@ def extract_sections(text):
     
     # Define known section headers (case-insensitive)
     headers = [
-        "Education", "Experience", "Work Experience",
+        "Objective", "Education", "Experience", "Work Experience",
         "Skills", "Technical Skills",
         "Projects", "Certifications", "Achievements", "Awards", "Internships"
     ]

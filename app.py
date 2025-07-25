@@ -50,7 +50,7 @@ if uploaded_file is not None:
         st.warning("No sections found in the resume.")
 
     # Detect missing sections
-    expected_sections = ["Education", "Experience", "Skills", "Projects", "Certifications"]
+    expected_sections = ["Objective", "Education", "Experience", "Skills", "Projects", "Certifications"]
     missing_sections = [sec for sec in expected_sections if sec not in sections]
     
     st.subheader("Missing Sections")
