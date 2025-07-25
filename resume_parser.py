@@ -18,19 +18,33 @@ def extract_resume_text(file_path):
         return ""
     
 def extract_sections(text):
-    # Define some common resume sections with patterns
-    section_patterns = {
-        "Education": r"(Education|Academic Background)(.*?)(?=\n[A-Z][a-zA-Z ]+?:|\Z)",
-        "Experience": r"(Experience|Work Experience)(.*?)(?=\n[A-Z][a-zA-Z ]+?:|\Z)",
-        "Skills": r"(Skills|Technical Skills)(.*?)(?=\n[A-Z][a-zA-Z ]+?:|\Z)",
-        "Projects": r"(Projects)(.*?)(?=\n[A-Z][a-zA-Z ]+?:|\Z)",
-        "Certifications": r"(Certifications|Licenses)(.*?)(?=\n[A-Z][a-zA-Z ]+?:|\Z)"
-    }
-    found_sections = {}
-    for section, pattern in section_patterns.items():
-        match = re.search(pattern, text, re.DOTALL | re.IGNORECASE)
-        if match:
-            found_sections[section] = match.group(0).strip()
-    return found_sections
+     # Clean up whitespace
+    text = re.sub(r'\n+', '\n', text)
+    
+    # Define known section headers (case-insensitive)
+    headers = [
+        "Education", "Experience", "Work Experience",
+        "Skills", "Technical Skills",
+        "Projects", "Certifications", "Achievements", "Awards", "Internships"
+    ]
+    
+    # Create a pattern like: (Education|Experience|Skills|Projects...)
+    pattern = r"(?i)^(?:{})\s*$".format("|".join(map(re.escape, headers)))
 
+    # Find all headers and their positions
+    matches = list(re.finditer(pattern, text, flags=re.MULTILINE))
+    
+    # If no sections found
+    if not matches:
+        return {}
 
+    # Extract section content from header to next header
+    sections = {}
+    for i, match in enumerate(matches):
+        section_title = match.group(0).strip().title()
+        start = match.end()
+        end = matches[i + 1].start() if i + 1 < len(matches) else len(text)
+        section_body = text[start:end].strip()
+        sections[section_title] = section_body
+
+    return sections

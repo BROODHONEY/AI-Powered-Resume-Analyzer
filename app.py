@@ -20,7 +20,7 @@ if uploaded_file is not None:
     # Extract and analyze the resume
     text = extract_resume_text(saved_file_path)
     sections = extract_sections(text)
-
+    
     # Display the extracted sections
     st.subheader("Extracted Sections")
     if sections:
