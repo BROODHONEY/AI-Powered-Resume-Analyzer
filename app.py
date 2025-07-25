@@ -1,6 +1,7 @@
 import streamlit as st
 import os
 from resume_parser import extract_resume_text, extract_sections
+from feedback_generator import check_grammar, suggest_better_phrasing
 
 st.set_page_config(page_title="AI Resume Analyzer", layout="wide")
 st.title("AI Resume Analyzer")
@@ -20,13 +21,31 @@ if uploaded_file is not None:
     # Extract and analyze the resume
     text = extract_resume_text(saved_file_path)
     sections = extract_sections(text)
-    
+
     # Display the extracted sections
-    st.subheader("Extracted Sections")
+    st.subheader("Section Feedback")
     if sections:
         for section, content in sections.items():
-            st.markdown(f"### {section}")
-            st.text_area(f'{section} Content', content, height=200, key=section)
+
+            # Check grammar in the section content
+            with st.expander(f"Feedback for {section}"):
+                st.markdown(f"#### Grammar suggestions:")
+                grammar_issues = check_grammar(content)
+                if grammar_issues:
+                    for issue in grammar_issues:
+                        st.write(issue)
+                else:
+                    st.success("No grammar issues found.")
+
+                # Suggest better phrasing
+                st.markdown(f"#### Phrasing Improvements:")
+                rewording_suggestions = suggest_better_phrasing(content)
+                if rewording_suggestions:
+                    st.markdown("#### Suggested Phrases:")
+                    for suggestion in rewording_suggestions:
+                        st.markdown(f"- {suggestion}")
+                else:
+                    st.success("No phrasing improvements needed.")
     else:
         st.warning("No sections found in the resume.")
 
