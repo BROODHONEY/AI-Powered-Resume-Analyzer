@@ -1,7 +1,7 @@
 import streamlit as st
 import os
-from resume_parser import extract_resume_text, extract_sections
-from feedback_generator import check_grammar, suggest_better_phrasing
+from core.resume_parser.extractor import extract_resume_text, extract_sections
+from core.utils.feedback_generator import check_grammar, suggest_better_phrasing
 
 st.set_page_config(page_title="AI Resume Analyzer", layout="wide")
 st.title("AI Resume Analyzer")
