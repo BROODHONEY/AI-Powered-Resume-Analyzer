@@ -1,0 +1,14 @@
+{
+    "Frontend Developer": {"keywords": ["React", "JavaScript", "HTML", "CSS", "REST APIs", "Redux", "UI/UX"]},
+    "Data Scientist": {"keywords": ["Python", "Pandas", "Machine Learning", "Deep Learning", "Scikit-learn", "Data Visualization", "NLP"]},
+    "Backend Developer": {"keywords": ["Node.js", "Express", "MongoDB", "SQL", "API Development", "Authentication", "Docker"]},
+    "DevOps Engineer": {"keywords": ["AWS", "Docker", "Kubernetes", "CI/CD", "Terraform", "Linux", "Monitoring"]},
+    "Full Stack Developer": {"keywords": ["JavaScript", "React", "Node.js", "Express", "MongoDB", "REST APIs", "GraphQL"]},
+    "Machine Learning Engineer": {"keywords": ["Python", "TensorFlow", "PyTorch", "Scikit-learn", "Data Preprocessing", "Model Deployment", "Feature Engineering"]},
+    "Data Engineer": {"keywords": ["SQL", "ETL", "Data Warehousing", "Apache Spark", "Python", "Big Data Technologies", "Data Pipeline"]},
+    "Cloud Engineer": {"keywords": ["AWS", "Azure", "Google Cloud", "Infrastructure as Code", "Networking", "Security", "Cloud Migration"]},
+    "Cybersecurity Analyst": {"keywords": ["Network Security", "Penetration Testing", "Vulnerability Assessment", "Incident Response", "SIEM", "Firewalls", "Encryption"]},
+    "Mobile App Developer": {"keywords": ["Android", "iOS", "Flutter", "React Native", "Swift", "Kotlin", "Mobile UI/UX"]},
+    "Game Developer": {"keywords": ["Unity", "Unreal Engine", "C#", "C++", "Game Design", "3D Modeling", "Game Physics"]},
+    "AI Researcher": {"keywords": ["Machine Learning", "Deep Learning", "NLP", "Computer Vision", "Python", "TensorFlow", "PyTorch"]}
+}
