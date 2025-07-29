@@ -4,7 +4,8 @@ from utils.role_loader import load_roles
 from core.extractor import extract_resume_text, extract_sections
 from core.feedback_generator import suggest_better_phrasing
 from core.grammar_checker import check_grammar
-from utils.matcher import match_keywords, get_keywords_from_role
+from utils.matcher import match_keywords
+import core.score_engine as score_engine
 
 st.set_page_config(page_title="AI Resume Analyzer", layout="wide")
 st.title("AI Resume Analyzer")
@@ -41,6 +42,14 @@ if uploaded_file is not None and analyze_button:
     # Extract and analyze the resume
     text = extract_resume_text(saved_file_path)
     sections = extract_sections(text)
+
+    score_dict = {
+        "education": score_engine.score_education(sections["Education"]),
+        "experience": score_engine.score_experience(sections["Experience"]),
+        "skills": score_engine.score_skills(sections["Skills"], text, ),
+        "projects": score_engine.score_projects(sections["Projects"]),
+        "certifications": score_engine.score_certifications(sections["Certifications"])
+    }
 
     if enable_jd_matching and job_description.strip():
         st.subheader("Job Description Matching")
@@ -100,11 +109,16 @@ if uploaded_file is not None and analyze_button:
                         st.markdown(f"- {suggestion}")
                 else:
                     st.success("No phrasing improvements needed.")
+
+
+                st.markdown("#### Section Score:")
+                if not section.lower() == "objective":
+                    st.markdown(f"Score: {score_dict[section.lower()][0]}")
     else:
         st.warning("No sections found in the resume.")
 
     # Detect missing sections
-    expected_sections = ["Objective", "Education", "Experience", "Skills", "Projects", "Certifications"]
+    expected_sections = ["Education", "Experience", "Skills", "Projects", "Certifications"]
     missing_sections = [sec for sec in expected_sections if sec not in sections]
     
     st.subheader("Missing Sections")
@@ -112,3 +126,10 @@ if uploaded_file is not None and analyze_button:
         st.warning(f"Missing sections: {', '.join(missing_sections)}")
     else:
         st.success("All expected sections are present in the resume.")
+
+    st.subheader("Overall Resume Score")
+    overall_score = score_engine.calculate_overall_score(sections, text, role_keywords)
+
+    for section, score in overall_score['scores'].items():
+        st.markdown(f"**{section} Score:** {score:.2f}%")
+    st.markdown(f"### 🏁 Total Resume Score: **{overall_score['scores']['Total']:.2f}%**")
